@@ -1,0 +1,16 @@
+{
+  "id": "obs-demo-001",
+  "environment": "staging-demo",
+  "scenario": "Guest booking summary proceeds to payment",
+  "steps_summary": [
+    "Open booking summary for a guest",
+    "Click Continue to payment"
+  ],
+  "actual": "Loading state persists; payment screen does not open",
+  "expected": {
+    "text": "Payment step should open when an amount remains",
+    "source_kind": "qa_reported"
+  },
+  "capture_id": "capture-demo-001",
+  "reporter_note": "Expected behavior is not linked to an approved criterion."
+}

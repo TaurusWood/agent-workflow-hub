@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/TaurusWood/agent-workflow-hub/main/schemas/diagnosis-report.schema.json",
+  "title": "DiagnosisReport (DRAFT)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "observation_id",
+    "symptom_type",
+    "fault_domain",
+    "confidence",
+    "claims",
+    "missing_evidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "symptom_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fault_domain": {
+      "enum": [
+        "frontend_ui",
+        "frontend_logic",
+        "backend_api",
+        "backend_domain",
+        "integration",
+        "data",
+        "configuration",
+        "requirement_design",
+        "network",
+        "unknown"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "statement",
+          "evidence_refs"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "fact",
+              "inference",
+              "hypothesis",
+              "unknown"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "suggested_team": {
+      "type": "string"
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

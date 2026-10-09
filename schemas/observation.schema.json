@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/TaurusWood/agent-workflow-hub/main/schemas/observation.schema.json",
+  "title": "Observation (DRAFT)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "environment",
+    "scenario",
+    "steps_summary",
+    "actual",
+    "expected"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario": {
+      "type": "string",
+      "minLength": 1
+    },
+    "test_case_ref": {
+      "type": "string"
+    },
+    "steps_summary": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "actual": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reporter_note": {
+      "type": "string"
+    },
+    "capture_id": {
+      "type": "string"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "source_kind"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_kind": {
+          "enum": [
+            "qa_reported",
+            "approved_acceptance_criteria",
+            "unknown"
+          ]
+        },
+        "source_ref": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

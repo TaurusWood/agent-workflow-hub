@@ -1,0 +1,20 @@
+{
+  "id": "draft-demo-001",
+  "observation_id": "obs-demo-001",
+  "title": "[Staging Demo] Continue to payment remains loading for guest checkout",
+  "environment": "staging-demo",
+  "steps_to_reproduce": [
+    "Open guest booking summary",
+    "Click Continue to payment"
+  ],
+  "expected": "Payment step opens when amount remains (QA-reported; not verified).",
+  "actual": "Page continues showing loading; navigation never occurs.",
+  "evidence_refs": [
+    "ev-action-01",
+    "ev-network-01",
+    "ev-screen-01"
+  ],
+  "diagnosis_report_id": "diag-demo-001",
+  "suggested_team": "example-payment-team",
+  "approval_status": "pending_review"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "bundle-demo-001",
+  "observation_id": "obs-demo-001",
+  "collected_at": "2026-10-09T10:00:00Z",
+  "capture_mode": "short_recording",
+  "redaction": {
+    "performed": true,
+    "policy_version": "demo-policy-0",
+    "notes": [
+      "Fictional evidence only."
+    ]
+  },
+  "actions": [
+    {
+      "id": "ev-action-01",
+      "time": "2026-10-09T10:00:01Z",
+      "description": "Click Continue button",
+      "locator": "[data-testid='continue-payment']"
+    }
+  ],
+  "network": [
+    {
+      "id": "ev-network-01",
+      "time": "2026-10-09T10:00:02Z",
+      "method": "POST",
+      "url_redacted": "https://example.invalid/api/payment/prepare",
+      "status": 500,
+      "duration_ms": 405
+    }
+  ],
+  "console_errors": [],
+  "screenshots": [
+    {
+      "id": "ev-screen-01",
+      "time": "2026-10-09T10:00:04Z",
+      "artifact_ref": "demo://screenshots/loading.png",
+      "description": "Fictional screenshot placeholder"
+    }
+  ],
+  "capture_gaps": [
+    "No backend trace available",
+    "Screenshot reference is a nonfunctional placeholder"
+  ]
+}

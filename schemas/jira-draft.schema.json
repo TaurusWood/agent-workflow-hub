@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/TaurusWood/agent-workflow-hub/main/schemas/jira-draft.schema.json",
+  "title": "JiraDraft (DRAFT)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "observation_id",
+    "title",
+    "environment",
+    "steps_to_reproduce",
+    "expected",
+    "actual",
+    "evidence_refs",
+    "approval_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "string",
+      "minLength": 1
+    },
+    "steps_to_reproduce": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "expected": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actual": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description_markdown": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "diagnosis_report_id": {
+      "type": "string"
+    },
+    "suggested_team": {
+      "type": "string"
+    },
+    "approval_status": {
+      "enum": [
+        "pending_review",
+        "approved",
+        "rejected",
+        "published"
+      ]
+    },
+    "jira_issue_key": {
+      "type": "string"
+    }
+  }
+}
