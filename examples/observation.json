@@ -1,16 +1,16 @@
 {
   "id": "obs-demo-001",
   "environment": "staging-demo",
-  "scenario": "Guest booking summary proceeds to payment",
+  "scenario": "Guest 在预订确认页进入付款流程",
   "steps_summary": [
-    "Open booking summary for a guest",
-    "Click Continue to payment"
+    "打开 Guest 的预订确认页",
+    "点击“继续付款”按钮"
   ],
-  "actual": "Loading state persists; payment screen does not open",
+  "actual": "页面持续显示 Loading，未进入付款页",
   "expected": {
-    "text": "Payment step should open when an amount remains",
+    "text": "仍有应付金额时应进入付款步骤",
     "source_kind": "qa_reported"
   },
   "capture_id": "capture-demo-001",
-  "reporter_note": "Expected behavior is not linked to an approved criterion."
+  "reporter_note": "该预期尚未关联经过批准的验收标准。"
 }

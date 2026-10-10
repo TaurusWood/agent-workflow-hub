@@ -1,18 +1,23 @@
-# Contributing to Agent Workflow Hub
+# 团队协作与提交规范
 
-This public repository documents an incremental engineering workflow. Contributions must distinguish **accepted direction**, **proposed design** and **unverified assumption**.
+这是一个公开的渐进式 AI 工程协作设计仓库。所有提交必须区分**已认可方向、设计提案和未经验证的前提**。
 
-## Review checklist
+## 评审清单
 
-- [ ] Material workflow value; no infrastructure for speculative future needs.
-- [ ] Clear human / tool / AI responsibility boundary.
-- [ ] Explicit provenance and uncertainty for claims.
-- [ ] Mermaid diagrams and phase limits updated if behavior changes.
-- [ ] No real internal names, non-public PRDs, service hosts, user data, code snippets, trace IDs, credentials or HAR captures.
-- [ ] Accepted-status changes cite an explicit team decision and scope.
+- [ ] 是否解决真实工作流中的痛点，而不是提前增加平台复杂度？
+- [ ] 人、确定性 Tool 和 AI 的职责是否分离？
+- [ ] Fact、Inference、Hypothesis、Unknown 的证据来源是否清晰？
+- [ ] 工作流有实质变化时，Mermaid 图和阶段边界是否同步更新？
+- [ ] 是否避免真实公司内部名称、保密 PRD、服务 Host、私有代码、Trace ID、用户数据与凭证？
+- [ ] 将决策升级为已批准状态时，是否记录了明确的人工裁决及适用范围？
 
-## Stakeholders
+## 团队参与
 
-PM: business intent and approved criteria; QA: reproducibility and review; Frontend: browser capture and source transparency; Backend/SRE: traces, service correlation and test data; Platform/Security: data and runtime controls; Jira admin/engineering lead: issue templates and ownership.
+- **PM：** 业务预期、已批准规则和验收标准。
+- **QA：** 可复现性、Capture 操作和 Jira 审核流程。
+- **前端：** 浏览器采集、Source Maps、选择器、Request ID。
+- **后端 / SRE：** 跨服务 Trace、日志访问和测试数据接口。
+- **平台 / 安全：** 数据保护、推理权限与服务运行。
+- **Jira 管理员 / 开发负责人：** 工单字段、权限及 Ownership。
 
-Use pull requests for material changes. A public design repository must not become an unreviewed mirror of internal company knowledge.
+重要变更建议通过 Pull Request 审核。不要把 Public 设计仓库演变成未经审查的内部业务知识镜像。

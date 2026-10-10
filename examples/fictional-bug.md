@@ -1,13 +1,25 @@
-# Synthetic walkthrough: guest checkout loading
+# 虚构案例：Guest Checkout 持续 Loading
 
-**All data are fictional** — no live customers, applications, services or screenshots.
+**全部数据均为虚构示例，不对应真实客户、应用、服务或截图。**
 
-QA observes persistent loading after clicking Continue on a guest booking summary. A short recording yields a click and a payment preparation request returning HTTP 500. The mock screenshot is a reference placeholder, not a real attachment.
+QA 发现：Guest 在 Booking Summary 点击 Continue 后页面持续 Loading。短时采集获得一次点击和一个返回 HTTP 500 的 Payment Prepare 请求。截图仅为占位引用，**并不存在真实文件**。
 
-The output separates: **fact** (HTTP 500 in captured request); **inference** (API boundary implicated); **hypothesis** (UI might fail to leave loading on request error); **unknown** (actual server root cause). The acceptance criterion is not linked, so the expected behavior is explicitly QA-reported rather than verified.
+分析结果明确分层：
 
-The Jira draft stays pending QA review. QA may correct the expectation or request more evidence before creation.
+- **事实（Fact）：** 所记录请求的 HTTP 状态是 500。
+- **证据支持的推断（Inference）：** API 边界出现失败信号，但根因未得到证明。
+- **假设（Hypothesis）：** 前端可能没有在请求失败后正确退出 Loading 状态。
+- **未知（Unknown）：** 跨服务错误链及实际部署的源码版本。
 
-Records: [Observation](observation.json) · [EvidenceBundle](evidence-bundle.json) · [DiagnosisReport](diagnosis-report.json) · [JiraDraft](jira-draft.json).
+当前尚未关联获批准的 Acceptance Criteria，因此“应该进入 Payment”只表示 **QA 提供的 Expected Behaviour**，并非系统已验证的业务规则。
 
-A downstream system must not treat a passing JSON Schema check as evidence that payloads are safe, correct or approved.
+Jira Draft 处于 **pending_review**，需要 QA 检查预期、修正或补充证据后再发布。
+
+## 四份对象示例
+
+- [Observation](observation.json)
+- [EvidenceBundle](evidence-bundle.json)
+- [DiagnosisReport](diagnosis-report.json)
+- [JiraDraft](jira-draft.json)
+
+JSON Schema 校验通过，不代表证据真实、安全或已获批准。

@@ -1,48 +1,48 @@
-# Requirement → verification: shared engineering workflow
+# 从需求到验证：面向团队的完整协作流程
 
-Status: **Target operating model**, not Phase 1 implementation scope.
+**状态：目标运行模式；并非第一阶段必须实现的全部范围。**
 
 ~~~mermaid
 flowchart TB
-  IDEA["PM drafts change / PRD"] --> PREFLIGHT["AI-assisted preflight\nexisting rules + code capabilities"]
-  PREFLIGHT --> DECIDE["Human product & engineering decisions"]
-  DECIDE --> RULE["Approved business intent\nAC / scenarios / known exceptions"]
-  RULE --> DEV["Developer + coding agent\ntechnical design & implementation"]
-  RULE --> QA["QA + AI\nprepare test cases and data requirements"]
-  DEV --> ENV["QA / Staging environment"]
-  QA --> TEST["Execute agreed scenarios"]
+  IDEA["PM 编写需求 / PRD"] --> PREFLIGHT["AI 预审：已有规则、系统能力和源码"]
+  PREFLIGHT --> DECIDE["产品与技术由人作最终裁决"]
+  DECIDE --> RULE["已批准的业务规则、AC 与测试场景"]
+  RULE --> DEV["开发 + Coding Agent：设计与实现"]
+  RULE --> QA["QA + AI：准备用例与数据前置条件"]
+  DEV --> ENV["QA / Staging 环境"]
+  QA --> TEST["按照场景执行测试"]
   ENV --> TEST
-  TEST -->|Unexpected| BUG["Capture → reviewable Jira"]
-  BUG --> REPAIR["Developer / agent resolution"]
+  TEST -->|发现异常| BUG["采集证据 → 审核 Jira"]
+  BUG --> REPAIR["开发 / Agent 修复"]
   REPAIR --> TEST
-  TEST -->|Pass| VERIFY["Verification evidence and delivery"]
+  TEST -->|通过| VERIFY["验收证据与交付"]
 ~~~
 
-## Distinct responsibilities
+## 不同岗位的责任
 
-**Product/PM:** Before the formal review, AI can identify existing rule conflicts, unhandled state transitions, missing acceptance criteria and potentially affected code. Human reviewers still decide ambiguous policy, trade-offs and new behavior. AI preflight reduces basic omissions; it does **not** make business sign-off automatic.
+**PM：** 在正式评审前，AI 可以对照已有规则、状态转换、边界情况和可能受影响的源码，协助发现冲突与遗漏。正式评审主要裁决业务策略、取舍和新行为，而不是把 AI 发现的缺口未经判断自动当作决策。
 
-**QA:** Prepare coverage from approved criteria as early as possible, including happy paths, boundaries and permissions. Specify **test-data preconditions** independently of any tool that provisions them. During QA, capture observations; do not act as manual message router between services.
+**QA：** 尽早从已批准 AC 形成正常路径、边界、权限等场景；将**测试数据前置条件**独立定义，不依赖是否已有自动造数工具。提 Bug 时主要表达观察，不承担跨部门消息转发。
 
-**Frontend:** Ensure QA/Staging is debuggable (prefer usable source maps), key controls have stable locators where useful, and request correlation can be recovered. Frontend is an initial investigation surface, not necessarily the origin of every UI symptom.
+**前端：** 保证 QA/Staging 可调试（优先 Source Maps），重要交互具有稳定选择器，关键请求可关联。前端是诊断的主要入口之一，但 UI 故障不等于前端根因。
 
-**Backend / SRE:** Decide how service errors, request IDs, trace propagation and allowed log queries can support fault-domain analysis across services. Backend introspection should not be invented by an external QA tool.
+**后端 / SRE：** 明确跨服务 Request ID、Trace 透传、日志访问和允许查询的诊断信息。不要让外部 QA 工具凭空假设拥有后端可观测性。
 
-**Developers / agents:** Consume the same structured issue, linked evidence and behavior expectation; correct and verify rather than rediscover symptoms verbally.
+**开发 / Agent：** 消费同一份结构化工单、证据和预期行为，针对性定位与修复，避免重新通过口头沟通建立背景。
 
-## Business knowledge is not identical to code
+## 业务知识与源码不是同一资产
 
-- Business rules/approved criteria describe **ought**.
-- Code/config describes **implementation**.
-- Runtime evidence describes **what happened**.
-- Requirements and implementation can diverge; the discrepancy must be exposed, not silently reconciled.
+- 业务规则 / AC 表达**应该发生什么**。
+- 代码 / 配置表达**如何实现**。
+- 运行时证据表达**本次实际发生什么**。
+- 三者可能冲突，必须显式呈现差异。
 
-A future business knowledge layer may link Confluence document IDs, rule IDs, accepted changes, test cases, code references and ownership, without replacing the existing authoritative source.
+未来的 Business Knowledge Layer 可以关联 Confluence 文档 ID、业务规则 ID、批准记录、用例与代码引用，而不取代原有权威来源。
 
-## Test data is a separate concern
+## 测试数据另行处理
 
-Start with explicit scenario requirements, e.g. Guest account; locale X; balance lower than order amount. Later validate an approved tool for finding or generating compliant test accounts and resetting state. Provisioning production-like personal data is prohibited without explicit controls.
+先定义业务前置条件，例如 Guest、指定地区、余额少于订单金额；后续再验证受控的账号查询、造数和状态重置工具。没有审批及数据保护措施，不得直接用生产个人数据造数。
 
-## Implementation sequencing
+## 实施顺序
 
-Only the **Bug Capture / Diagnosis / Jira** slice is prioritized for the first PoC. PRD preflight, test-data orchestration and test-case generation are candidate parallel experiments, not dependencies that block v0.1.
+首先验证 **Bug Capture / Diagnosis / Jira** 闭环。PRD 预审、测试场景生成、测试数据编排可以平行试验，但不得成为 v0.1 的前置阻塞。

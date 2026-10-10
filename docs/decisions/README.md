@@ -1,42 +1,42 @@
-# Decisions and open questions
+# 决策记录与开放问题
 
-This register separates **accepted direction**, **proposal**, and **unverified assumption**. The mere presence of text here does not constitute a frozen technical contract or team approval.
+此处严格区分**已认可方向、候选提案与未验证前提**。写进仓库不等于已成为冻结的技术合同，更不代表团队全部批准。
 
-## Accepted direction from discussion (2026-10-09)
+## 讨论中已认可的方向（2026-10-09）
 
-| ID | Direction |
+| 编号 | 内容 |
 | --- | --- |
-| D-01 | Improve Jira quality and QA→developer handoff; do not require QA to author engineering diagnosis. |
-| D-02 | QA discovers and describes the discrepancy; deterministic tools gather facts; AI classifies and drafts; people review key behavior claims. |
-| D-03 | Business rules/AC are important assets separate from code and runtime evidence. |
-| D-04 | Evidence-backed diagnosis must distinguish fact, inference, hypothesis and unknown. |
-| D-05 | QA should be able to continue testing after observation submission; analysis need not block the session. |
-| D-06 | Browser capture and frontend transparency are high-value initial directions; short capture on observed issue is preferred to passive continuous recording. |
-| D-07 | Jira creation should follow QA review/confirmation at this maturity level. |
-| D-08 | Test-data automation and broad PRD/SDLC changes are future/parallel tracks, not blockers for the QA-to-Jira MVP. |
-| D-09 | Current repo is **public**; never store real internal evidence, maps, source, credentials or business documents. |
+| D-01 | 重点提升 Jira 质量和 QA → 开发交接效率；不要求 QA 编写技术根因诊断。 |
+| D-02 | QA 发现、描述差异；确定性工具获取事实；AI 做分类与草拟；人审核关键行为判断。 |
+| D-03 | 业务规则 / AC 是区别于代码和运行证据的重要资产。 |
+| D-04 | 诊断必须区分 Fact、Evidence-backed Inference、Hypothesis 和 Unknown。 |
+| D-05 | QA 提交 Observation 后可继续测试，无须同步等待完整分析。 |
+| D-06 | 浏览器采集和前端透明化优先验证；倾向问题发生后短时采集，而不是全时录制。 |
+| D-07 | 目前阶段 Jira 应由 QA 审核/确认后创建。 |
+| D-08 | 通用造数及完整 PRD/SDLC 改造是后续或平行探索，不阻塞 QA → Jira MVP。 |
+| D-09 | 仓库当前为 **Public**，不得放入真实内部证据、映射、源码、令牌或保密业务文档。 |
 
-## Proposals awaiting engineering validation
+## 仍待工程验证的提案
 
-| ID | Proposal | Required verification |
+| 编号 | 提案 | 需要验证 |
 | --- | --- | --- |
-| P-01 | Chrome extension + CDP/Recorder-based evidence collection | Permissions, DevTools conflict, fidelity, UX |
-| P-02 | Small QA Assistant API, background analysis, review surface | Security, operational ownership, persistence |
-| P-03 | Candidate QA/Staging branch as code lookup default | Branch drift and deployed-code mismatch |
-| P-04 | Model inference via authorized service-side provider/adapter | Entitlement, cost, privacy and concurrency |
-| P-05 | Typed Observation, EvidenceBundle, DiagnosisReport and JiraDraft | QA/engineering review and realistic samples |
-| P-06 | Phased rollout Phase 0 → v0.1 → v0.2 → v0.3 | Pilot measurements and resourcing |
+| P-01 | Chrome Extension + CDP/Recorder 采集 | 权限、DevTools 冲突、保真度、QA 操作体验 |
+| P-02 | 轻量 QA Assistant API、异步诊断和审核入口 | 安全、运行管理、持久化 |
+| P-03 | 使用 QA/Staging 固定分支进行候选源码检索 | 分支是否与已部署代码发生重要偏移 |
+| P-04 | 服务端使用获授权的模型 API/Runtime Adapter | 权限、成本、隐私及并发 |
+| P-05 | Observation、EvidenceBundle、DiagnosisReport、JiraDraft 四类对象 | 真实样本及 QA/工程评审 |
+| P-06 | Phase 0 → v0.1 → v0.2 → v0.3 渐进路线 | 试点数据和资源投入 |
 
-## Questions requiring team participation
+## 需要各团队参与回答
 
-1. QA: What is the typical bug path today? What capture interaction can be performed in seconds?
-2. Frontend: Source maps in QA/Staging? Stable selectors? Can CDP/network evidence be collected under browser policies?
-3. Backend: How do requests correlate across 3–4 services? Are trace IDs, logs and test data APIs available?
-4. PM: Which approved documents can serve as reliable expected behavior? Who settles contradictions?
-5. Jira/project admin: Required fields, attachment limits, write rights, deduplication and notifications?
-6. Security/platform: What evidence may be captured, retained, sent to model, attached to Jira?
-7. Platform/AI: Which inference provider is legally and technically callable by backend service?
+1. **QA：** 真实提 Bug 流程的耗时分布是什么？采集入口怎样才能足够顺手？
+2. **前端：** QA/Staging 是否有 Source Maps、稳定选择器？公司浏览器政策允许 CDP/Network 获取什么？
+3. **后端：** 3～4 个服务之间如何关联请求？目前有什么 Trace ID、日志访问能力、造数 API？
+4. **PM：** 哪些已批准文档可代表 Expected Behaviour？规则冲突由谁裁决？
+5. **Jira 管理员：** 必填字段、附件限制、写入权限、去重和通知方式？
+6. **安全 / 平台：** 哪些证据能采、能保留、能给模型、能进 Jira？
+7. **AI / 平台：** 团队实际上拥有什么可编程推理权限？
 
-## Change process
+## 决策状态管理
 
-Each material decision should record: decision, alternatives considered only where material, supporting evidence, owner, date and scope. Upgrade P to accepted only after explicit review/approval, not because no one objected. Avoid overbuilding an ADR bureaucracy before the first technical spike.
+重要决策需记录：决策内容、真正重要的替代项、支撑证据、负责人、日期和适用范围。只有明确的人类确认后，才能把 P 类提案升级为已认可/冻结；**没有反对不等于已批准**。首个 Spike 前无需建立繁琐 ADR 机制。

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/TaurusWood/agent-workflow-hub/main/schemas/evidence-bundle.schema.json",
-  "title": "EvidenceBundle (DRAFT)",
+  "title": "EvidenceBundle（运行证据包 · 草案）",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -189,5 +189,6 @@
         "type": "string"
       }
     }
-  }
+  },
+  "description": "字段名、枚举值、类型及 required 保持不变；本文件只提供中文版说明性元数据。仍是未冻结的设计草案。"
 }

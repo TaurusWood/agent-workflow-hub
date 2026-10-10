@@ -7,14 +7,14 @@
     "performed": true,
     "policy_version": "demo-policy-0",
     "notes": [
-      "Fictional evidence only."
+      "仅使用虚构演示数据。"
     ]
   },
   "actions": [
     {
       "id": "ev-action-01",
       "time": "2026-10-09T10:00:01Z",
-      "description": "Click Continue button",
+      "description": "点击“继续付款”按钮",
       "locator": "[data-testid='continue-payment']"
     }
   ],
@@ -34,11 +34,11 @@
       "id": "ev-screen-01",
       "time": "2026-10-09T10:00:04Z",
       "artifact_ref": "demo://screenshots/loading.png",
-      "description": "Fictional screenshot placeholder"
+      "description": "虚构截图引用占位符（无实际图片）"
     }
   ],
   "capture_gaps": [
-    "No backend trace available",
-    "Screenshot reference is a nonfunctional placeholder"
+    "无后端 Trace 证据",
+    "截图引用仅作演示，无法访问实际文件"
   ]
 }

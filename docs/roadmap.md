@@ -1,43 +1,48 @@
-# Roadmap, feasibility and exit gates
+# 路线图、可行性和验收 Gate
 
-Status: **Proposed sequencing**; no implementation commitment or schedule estimate.
+**状态：建议实施顺序；尚未承诺排期和研发资源。**
 
-## Phases and gates
+## 分阶段目标
 
-| Stage | Deliverable | Exit gate | Not required yet |
+| 阶段 | 交付 | 通过 Gate 的条件 | 此阶段不要求 |
 | --- | --- | --- | --- |
-| Phase 0 — technical spike | One synthetic Chrome reproduction → draft → reviewed Jira creation | Can capture useful evidence; legal/secure inference available; Jira API permissions verified | Full product UX |
-| v0.1 — QA to Jira | Short capture + observation + structured evidence + asynchronous draft + QA confirmation + Jira | QA does not manually retype bug; minimal issue correct; errors visible; redaction passes | Exact root-cause proof, team auto-assignment |
-| v0.2 — context-rich frontend diagnosis | Targeted AC + frontend source and source maps; evidence-backed fault-domain hints | Traceable diagnosis, measurable reduction in clarification | General knowledge mirror |
-| v0.3 — backend and routing | Service logs/traces, system ownership, validated team routing | Cross-service request correlation; routing policy reviewed | Autonomous code changes |
-| Later — requirement and test preparation | PRD preflight, scenario generation, safe data provisioning and regression linkage | Distinct user and security acceptance gates | Universal automated SDLC |
+| Phase 0：技术 Spike | 一条虚构 Chrome 复现 → AI 草稿 → 人工审核 Jira 流程 | 采集有效、模型权限合规、Jira API 权限通过 | 完整产品 UI |
+| v0.1：QA → Jira | 短时采集 + Observation + 结构化证据 + 异步 Draft + QA 确认 + Jira | QA 无须手动重录 Bug；最低质量合格；异常可见；脱敏通过 | 精确 Root Cause、自动指派 |
+| v0.2：上下文与前端诊断 | 定向 AC + Source Maps + 前端源码检索，提供附证据的 Fault Domain | 诊断可追溯、基础澄清沟通实际减少 | 全量 Knowledge Mirror |
+| v0.3：后端与路由 | 多服务日志/Trace、系统 Owner、受控团队路由 | 跨服务请求可关联；路由策略经过评审 | 自动改代码 |
+| 后续：需求与测试准备 | PRD Preflight、测试场景、受控造数、回归关联 | 各能力独立通过业务与安全验收 | 通用全自动 SDLC |
 
-## Feasibility matrix (initial hypotheses)
+## 可行性矩阵：当前假设
 
-| Module | Value | Difficulty | Dependency | Evidence reliability | Priority |
+| 模块 | 价值 | 实现难度 | 必要依赖 | 证据可靠性 | 优先级 |
 | --- | --- | --- | --- | --- | --- |
-| Standard Jira draft/API | High | Low–medium | Jira permission + schema | High after deterministic validation | Immediate |
-| Browser action/console/network capture | High | Medium | Chrome permissions / CDP compatibility | To validate per signal | Immediate spike |
-| QA review UI | High | Low–medium | Auth + draft persistence | High for QA-verified facts | v0.1 |
-| Contextual AC lookup | High | Medium | Confluence authority/permissions | Depends on document currency | Minimal early, deepen v0.2 |
-| Source map / repository investigation | Medium–high | Medium | Maps, branch candidates, code access | Probabilistic without deployed SHA | v0.2 |
-| Backend request/trace analysis | Potentially high | High / unknown | Service tracing, log owners, access | Unknown until observability reviewed | v0.3 |
-| Auto route to team | Medium–high | Medium | Maintained ownership contract | Unknown until historical evaluation | Suggest first |
-| Automatic test data | Potentially high | High | Safe setup/reset APIs | Scenario-specific | Later |
-| Full PRD preflight | High potential | Medium–high | Rule quality / code linking | Human review required | Parallel pilot |
+| Jira 模板与 API | 高 | 低～中 | Jira 权限与字段 | 确定性校验后较高 | 立即 |
+| 浏览器操作、Console、Network 采集 | 高 | 中 | Chrome 权限、CDP 兼容 | 分信号验证 | 立即 Spike |
+| QA 审核界面 | 高 | 低～中 | 鉴权、草稿存储 | QA 核对事实后较高 | v0.1 |
+| 定向 AC 查询 | 高 | 中 | Confluence 权威文档与权限 | 取决于文档更新质量 | 早期最小化 |
+| Source Maps / Git 查询 | 中～高 | 中 | Map、候选分支、代码权限 | 未知部署 SHA 时仅推断 | v0.2 |
+| 后端 Trace 诊断 | 潜力高 | 高 / 未知 | 服务监控、日志 Owner、权限 | 待可观测性评估 | v0.3 |
+| 自动建议团队 | 中～高 | 中 | 可维护的 Ownership Map | 待历史工单测试 | 先建议 |
+| 自动测试数据 | 潜力高 | 高 | 可控生成/重置接口 | 场景相关 | 后续 |
+| 完整 PRD 预审 | 潜力高 | 中～高 | 规则质量、源码关联 | 需人工确认 | 可平行 PoC |
 
-## Validation measures
+## 如何验证实际价值
 
-Baseline current median / p90 time to developer-actionable issue, clarification loops per issue, issue reproducibility, misrouting and QA work per issue. Compare the same categories after rollout. Do not assert percentages before an observed pilot.
+先测量当前从 QA 发现异常到开发获得可执行工单的中位数 / P90 耗时、澄清次数、Bug 可复现度、错误路由率与 QA 工时。试点后用可比较样本检验效果。没有数据不预设提升百分比。
 
-## Decision gates after spike
+## Spike 后的 Gate
 
-**Proceed to v0.1** only after confirming: (1) Chrome capture offers useful reproducible evidence; (2) a secure AI runtime is callable by service; (3) intake/redaction and storage approach is acceptable; (4) QA can review and publish a minimum Jira via authenticated API.
+只有在确认以下条件后，才建议冻结 v0.1 技术方案：
 
-If CDP recording is impractical, fall back to narrower browser collection or guided evidence import while preserving the same domain contracts. If model access is blocked, first deliver deterministic Jira templating and evidence attachments, then add AI asynchronously.
+1. Chrome 能采集对复现和诊断有实际价值的证据。
+2. 有获准且可由服务调用的模型运行时。
+3. 证据接收、脱敏与存储满足内部安全要求。
+4. QA 可以审核最小 Jira，系统能通过认证 API 发布。
 
-## Explicitly excluded until evidence changes
+如果 CDP 方案受限，应考虑更窄的浏览器采集或受控导入已脱敏证据，但保持同样业务对象。如果模型接入暂不可行，先交付确定性 Jira 模板与证据附件，再补 AI。
 
-Universal log search, automatic individual assignment, agent fixing production bugs, full service orchestration, all-system documentation mirroring, generic test-account provisioning, all-day session recording, and feature-branch-to-deployment provenance platform.
+## 当前明确不做
 
-For practical experiments see [QA capture spike](validation/qa-capture-spike.md).
+通用日志搜索平台、无条件自动指派个人、Agent 自动修复生产 Bug、完整服务编排、镜像所有内部文档、通用造数平台、全天候浏览器录屏，以及功能分支到部署的全量溯源系统。
+
+实施实验见 [Chrome 技术验证计划](validation/qa-capture-spike.md)。

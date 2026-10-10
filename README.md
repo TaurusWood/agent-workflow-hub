@@ -1,49 +1,50 @@
-# Agent Workflow Hub
+# Agent Workflow Hub · AI 工程协作枢纽
 
-> AI-assisted engineering collaboration: from business intent to verifiable execution evidence and actionable work items.
+> 让业务预期、真实运行证据与工程实现形成可追溯的协作链路，产出开发人员与 Coding Agent 都能直接理解和处理的任务。
 
-**Status:** Design baseline · 2026-10-09 · No production implementation.
+**状态：设计基线 · 2026-10-09 · 尚无生产实现。**
 
-This public repository records shared **principles, target workflows, proposed architecture and validation plans** for improving engineering collaboration. **Track B — QA observation → evidence → diagnosis → human review → Jira** is the first implementation track. Earlier SDLC activities (PRD, business rules, test preparation) are context and future integration points, not scope for a full platform build now.
+本仓库公开记录团队 AI 工程协作体系的**已认可原则、目标流程、候选架构与验证计划**。第一个落地切口是 **Track B：QA 观察异常 → 证据采集 → 有界诊断 → 人工审核 → Jira**。PRD、业务规则与测试准备属于上游背景及未来集成点；当前不建设完整 SDLC 平台。
 
-## Read first
+## 阅读入口
 
-| Audience | Start here |
+| 角色 | 建议先阅读 |
 | --- | --- |
-| Everyone | [Vision and boundaries](docs/vision.md) |
-| PM / QA / Engineering | [End-to-end collaboration workflow](docs/workflows/requirement-to-verification.md) |
-| QA / Frontend / Backend | [Bug lifecycle](docs/workflows/bug-lifecycle.md) |
-| Architects / implementers | [System architecture](docs/architecture/system-overview.md) |
-| Implementers | [Evidence and AI pipeline](docs/architecture/evidence-diagnosis-pipeline.md) |
-| Leads | [Phased roadmap and gates](docs/roadmap.md) |
-| Reviewers | [Confirmed, proposed and open decisions](docs/decisions/README.md) |
+| 全体成员 | [目标、痛点与边界](docs/vision.md) |
+| PM / QA / 开发 | [从需求到验收的协作流程](docs/workflows/requirement-to-verification.md) |
+| QA / 前端 / 后端 | [Bug 生命周期](docs/workflows/bug-lifecycle.md) |
+| 架构与实施人员 | [系统架构图](docs/architecture/system-overview.md) |
+| 实施人员 | [Evidence → AI → Review → Jira 技术链路](docs/architecture/evidence-diagnosis-pipeline.md) |
+| 团队负责人 | [路线图、可行性与 Gate](docs/roadmap.md) |
+| 评审人员 | [已认可方向、提案及未解决问题](docs/decisions/README.md) |
+| AI 平台负责人 | [模型接入及订阅权限边界](docs/architecture/model-runtime-options.md) |
 
-Mermaid diagrams are embedded in the Markdown files and render directly on GitHub.
+Mermaid 图直接嵌入 Markdown，可在 GitHub 原生查看。
 
-## Operating principles
+## 基本原则
 
-- **Business intent, implementation and runtime evidence are distinct sources:** none can silently replace another.
-- **Human discovers and confirms; tools capture facts; AI explains and structures evidence.**
-- **Evidence-first:** all diagnosis must separate observed facts, evidence-backed inference, hypothesis and unknown.
-- **An actionable Jira is the outcome, not autonomous root-cause analysis.**
-- **QA should not clone service repositories or manually transcribe technical diagnostics.**
-- **Start with a reviewable Jira draft; automatic assignment and bug fixes require stronger evidence and controls.**
-- **Build incrementally; do not assume a shared product rules mirror, universal test-data platform, or enterprise-scale agent infrastructure is needed for v0.1.**
+- **预期行为、代码实现、运行时事实是三个不同的信息源**，不能互相替代。
+- **人发现并确认问题；工具采集客观事实；AI 根据证据解释、推断并整理。**
+- **Evidence First**：事实、证据支持的推断、假设、未知必须明确区分。
+- 交付目标是**开发可执行的高质量 Jira**，不是必须自动证明 Root Cause。
+- 不要求 QA 在本地 clone 多个代码仓库，也不要求 QA 人工整理所有技术细节。
+- Jira 在本阶段先生成可审核草稿；自动指派与自动修复需要更高验证门槛。
+- 先以真实工作流验证价值，不提前建设全量业务规则镜像、通用造数平台或复杂 Agent 基础设施。
 
-## First target scenario
+## 首个目标场景
 
-A QA engineer reproduces an issue in QA/Staging using a short browser capture. The tool collects operations, relevant console/network evidence and screenshots. An application service securely processes that bundle and calls a **configured model runtime** with only relevant business/code context. QA reviews the generated observation summary, expected/actual, evidence and proposed Jira, edits or approves, and the service creates Jira via its API. The user can continue testing while enrichment runs, and review is notified when ready.
+QA 在 QA/Staging 环境发现异常后，启动短时浏览器采集并复现。工具记录操作、相关 Network/Console 信号和截图；受控应用服务对证据脱敏、存储，并调用**已获准的模型运行时**，按需关联业务规则与源码。QA 查看并修改 Observation、Expected/Actual、证据与 Jira 草稿，确认后才通过 Jira API 创建工单。增强诊断可以异步执行，QA 不必原地等待。
 
-**Important:** A consumer coding subscription does not automatically grant service-to-service inference API access. AI runtime/provider and entitlement are an explicit technical decision, not an assumed capability.
+**注意：** Coding Plan 或 ChatGPT 个人订阅不能自动当作团队服务端 API 凭证；可用的授权路径及限制见[模型接入选项](docs/architecture/model-runtime-options.md)。
 
-## Public repository policy
+## Public 仓库约束
 
-**Never commit:** internal Confluence exports, confidential PRDs, proprietary business rules, access tokens, tenant URLs, service endpoints, customer/user data, real HAR files, screenshots, stack traces, trace identifiers, private repo names or internal ownership maps. Examples in this repository are fictional. Keep sensitive mappings and evidence in appropriately access-controlled systems; any future sync design requires security review.
+**严禁提交：** 真实 Confluence 导出、保密 PRD、内部业务规则、令牌、内网地址、账号、真实 HAR、截图、堆栈、Trace ID、私有仓库名称、内部 Ownership 映射与客户/员工信息。本仓库的示例全部虚构。真实映射和证据必须放在适当权限控制的内部系统中。
 
-## What this repository is not
+## 本仓库不是什么
 
-Not a deployed QA tool, not a source-of-truth mirror for internal company documents, not a replacement for Jira/Confluence/source repositories, and not an approved implementation contract. Documents mark each decision by status.
+不是已部署的 QA 工具，不是内部 Confluence/Jira/代码仓库的替代品，也不是已经冻结的 API 与工程合同。文档中的决策状态会明确标记。
 
-## Next step
+## 下一步
 
-Run the [Chrome capture → AI interpretation → QA review → Jira technical spike](docs/validation/qa-capture-spike.md) with synthetic or approved non-sensitive data. Use the results to set the v0.1 implementation boundary.
+按照 [Chrome Evidence → AI Draft → QA Review → Jira 技术验证计划](docs/validation/qa-capture-spike.md) 使用虚构或获批的非敏感数据完成端到端 PoC，再基于验证结果冻结 v0.1 的技术边界。

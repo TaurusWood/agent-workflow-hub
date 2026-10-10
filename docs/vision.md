@@ -1,56 +1,56 @@
-# Vision, problem, and boundaries
+# 系统愿景、真实痛点与范围边界
 
-Status: **Baseline principles accepted in discussion; implementation not yet approved.** Date: 2026-10-09.
+**状态：讨论中已认可的方向性原则；实施方案尚未批准。** 日期：2026-10-09。
 
-## Why
+## 为什么要做
 
-Engineering teams may already use coding agents, yet defects still travel through weakly structured human communication. A QA observation becomes a screenshot, a short Jira description, a chat message, a call to an off-site developer, a reassignment, and finally a prompt for a coding agent. That loses context and repeats expensive discovery work.
+团队即使已经普遍使用 Coding Agent，Bug 仍可能从 QA 的一句现象描述开始，经过截图、简短 Jira、群聊、跨地会议、责任转交，最后由开发再次翻译成 Agent 能理解的问题。这条链路反复损失上下文，形成较高的信息转换与沟通成本。
 
-The goal is **high-quality, fast, engineering-ready Jira**, and over time to connect the business intent, tested behavior and runtime evidence throughout the engineering lifecycle.
+我们的核心目标是：**更快、更稳定地产出高质量、工程可执行的 Jira**。长期目标则是让业务意图、测试预期、实现源码和运行证据可关联、可追溯，逐步改善整个研发协作过程。
 
-## Intended outcome
+## 期望结果
 
-A QA engineer describes a discrepancy using ordinary business language and captures a reproducible browser session. The system takes responsibility for gathering and organizing facts, resolving relevant requirement context, suggesting a **bounded** diagnosis, and preparing a structured issue. The QA engineer verifies what was observed and expected before publication. Developers and their agents should be able to start investigation without first reconstructing the entire observation through meetings.
+QA 用业务语言表达异常，通过短时浏览器采集获得可复现的证据。系统负责获取并组织事实、查找对应的需求上下文、给出**有边界的诊断**、生成结构化工单。QA 在发布前审核观察现象与预期行为；开发及其 Coding Agent 不必先举行一轮会议来重建问题背景。
 
-The same principles may extend earlier: PM/QA prepare acceptance criteria and tests against business rules, while developers and agents compare the planned behavior with existing code and services.
+同一原则可以向前延伸：PM 和 QA 基于已批准的业务规则准备验收标准和测试；开发/Agent 将规划行为与已有代码、服务能力对照。
 
-## Three distinct information authorities
+## 三类权威来源，不能混为一谈
 
-| Information | Governs | Typical authority |
+| 资产 | 回答什么问题 | 典型权威来源 |
 | --- | --- | --- |
-| Business intent / acceptance criteria | Expected behavior | Approved product decisions / Confluence |
-| Implementation | How behavior is implemented | Application source and configuration |
-| Runtime evidence | What happened in a particular run | Browser, APIs, logs and tracing |
+| Business Rules / Acceptance Criteria | 系统**应该**如何表现 | 已批准的产品决策、Confluence |
+| Implementation | 系统如何实现 | 代码、配置 |
+| Runtime Evidence | 本次执行**实际**发生什么 | 浏览器、接口、日志、Trace |
 
-One source cannot silently replace another. If they disagree, preserve the disagreement for review rather than manufacture a single confident answer.
+来源之间出现冲突时，应保留冲突供人裁决，不得静默拼凑成一个“确定答案”。
 
-## Human/tool/AI contract
+## 人、工具与 AI 的职责
 
-| Role | Responsibility | Not required |
+| 角色 | 应承担 | 不应要求 |
 | --- | --- | --- |
-| PM | Define and decide business behavior, exceptions and trade-offs | Inspect each code path manually |
-| QA | Identify test context, observe discrepancies, review facts and expectation | Know service ownership or hand-write diagnosis |
-| Developer / owner | Diagnose and change implementation, review uncertain routing | Re-interview QA for ordinary captured facts |
-| Deterministic tools | Capture, redact, store, link, validate, call APIs | Infer undocumented business intent |
-| AI | Summarize, compare, classify and explain with provenance; ask for missing evidence | Pretend hypotheses are verified facts |
+| PM | 明确预期行为、异常分支与业务取舍 | 手动遍历所有代码调用路径 |
+| QA | 识别测试场景、观察异常、核对事实与预期 | 掌握每个服务的 Owner 或手写源码级诊断 |
+| 开发 / 责任人 | 定位并修复实现问题，复核低可信度路由 | 为基本采集事实反复追问 QA |
+| 确定性工具 | 采集、脱敏、存储、关联、校验和调用 API | 擅自解释未定义的业务规则 |
+| AI | 摘要、对照、分类、附证据的诊断、指出缺口 | 将假设描述为经验证的事实 |
 
-## First track and exclusions
+## 优先范围与排除项
 
-**Track B — QA observation → evidence → reviewable Jira** is the first implementation track. Track A — PRD/business knowledge/pre-test preparation — is important input context, not an excuse to rebuild SDLC first.
+**Track B：QA Observation → Evidence → 人工审核 Jira** 是优先实施方向。Track A（PRD / Business Knowledge / 预先测试准备）是重要输入，但不应迫使第一版重建完整 SDLC。
 
-Not first-release requirements: automatic root-cause proof; automatic code repair; generic test data platform; full-scale Confluence mirror; exact per-feature deployment provenance; auto-assignment to individuals; replacing existing coding-agent subscriptions with unsupported API assumptions.
+第一版**不要求**：精确 Root Cause 的自动证明、自动修 Bug、通用造数平台、全量 Confluence 镜像、每个功能分支到部署的完整追溯、自动指派到个人、默认把现有 Coding 订阅当成服务端模型权限。
 
-## Success metrics (targets to baseline, not invented numbers)
+## 衡量指标：先测基线，不编造提升比例
 
-- Time from QA observation to developer-actionable issue.
-- Fraction of Jira bugs accepted without basic clarification requests.
-- Reproducibility / evidence completeness for relevant issue types.
-- QA hands-on effort per issue.
-- Incorrect team routing and reopen/reassignment rate.
-- Evidence capture failure rate, sensitive data incidents, diagnosis corrections.
+- 从 QA 发现异常到开发获得“可执行问题”的耗时。
+- Jira 无须基础补充沟通即可受理的比例。
+- 按缺陷类型统计证据完整度与可复现率。
+- QA 每次提交观察所需的人工作业时间。
+- 错误路由、转交和重新打开工单的比例。
+- 采集失败、敏感数据泄漏与 AI 诊断纠正比例。
 
-Measure against the current manual process before claiming improvement.
+先量化现状，再宣称效率提升。
 
-## Public disclosure boundary
+## Public 边界
 
-This repository documents abstract design. Company-specific PRDs, system maps, internal URLs, HAR captures, telemetry, identities and credentials must remain in controlled storage; this repo may store only sanitized interfaces and examples.
+本仓库只存抽象设计。公司内部 PRD、系统映射、内网地址、HAR、Telemetry、身份信息与密钥必须保存在有权限控制的内部系统；此处只允许脱敏接口说明和虚构示例。

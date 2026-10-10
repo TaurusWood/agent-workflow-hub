@@ -7,21 +7,21 @@
   "claims": [
     {
       "kind": "fact",
-      "statement": "The captured payment preparation request returned HTTP 500.",
+      "statement": "录制期间，付款准备接口返回 HTTP 500。",
       "evidence_refs": [
         "ev-network-01"
       ]
     },
     {
       "kind": "inference",
-      "statement": "The API boundary is implicated; underlying root cause is not established.",
+      "statement": "API 调用边界出现失败信号，但底层根因尚未确认。",
       "evidence_refs": [
         "ev-network-01"
       ]
     },
     {
       "kind": "hypothesis",
-      "statement": "The UI may lack an error-state transition after the failed request.",
+      "statement": "前端可能未在接口请求失败后正确切换出 Loading 状态。",
       "evidence_refs": [
         "ev-action-01",
         "ev-network-01"
@@ -29,14 +29,14 @@
     },
     {
       "kind": "unknown",
-      "statement": "Cross-service failure path and deployed source revision are unknown.",
+      "statement": "跨服务故障调用链以及实际部署的源码版本未知。",
       "evidence_refs": []
     }
   ],
   "missing_evidence": [
-    "Backend trace",
-    "Approved acceptance criterion",
-    "Verified deployed build"
+    "后端 Trace",
+    "经过批准的验收标准",
+    "已确认的部署构建版本"
   ],
   "suggested_team": "example-payment-team"
 }
