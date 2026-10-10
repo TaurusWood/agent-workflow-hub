@@ -1,0 +1,19 @@
+{
+  "id": "draft-obs-demo-001",
+  "observation_id": "obs-demo-001",
+  "title": "[staging-demo] Guest booking summary proceeds to payment",
+  "environment": "staging-demo",
+  "steps_to_reproduce": [
+    "Open booking summary for a guest",
+    "Click Continue to payment"
+  ],
+  "expected": "Payment step should open when an amount remains",
+  "actual": "Loading state persists; payment screen does not open",
+  "evidence_refs": [
+    "ev-action-01",
+    "ev-network-01",
+    "ev-screen-01"
+  ],
+  "approval_status": "pending_review",
+  "description_markdown": "AI status: analysis_failed\n\nExpected source: qa_reported\n\nCapture gaps: No backend trace available; Screenshot reference is a nonfunctional placeholder"
+}

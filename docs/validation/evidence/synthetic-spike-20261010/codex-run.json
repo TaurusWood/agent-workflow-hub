@@ -1,0 +1,7 @@
+{
+  "runtime": "codex",
+  "status": "analysis_failed",
+  "error": "codex_not_installed",
+  "model_called": false,
+  "jira_published": false
+}
