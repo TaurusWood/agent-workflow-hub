@@ -1,0 +1,20 @@
+{
+  "id": "draft-obs-demo-001",
+  "observation_id": "obs-demo-001",
+  "title": "[staging-demo] Guest booking summary proceeds to payment",
+  "environment": "staging-demo",
+  "steps_to_reproduce": [
+    "Open booking summary for a guest",
+    "Click Continue to payment"
+  ],
+  "expected": "Payment step should open when an amount remains",
+  "actual": "Loading state persists; payment screen does not open",
+  "evidence_refs": [
+    "ev-action-01",
+    "ev-network-01",
+    "ev-screen-01"
+  ],
+  "approval_status": "pending_review",
+  "description_markdown": "AI status: fixture_replay\n\nExpected source: qa_reported\n\nCapture gaps: No backend trace available; Screenshot reference is a nonfunctional placeholder\n\nfact: The captured payment preparation request returned HTTP 500. [ev-network-01]\n\ninference: The API boundary is implicated; underlying root cause is not established. [ev-network-01]\n\nhypothesis: The UI may lack an error-state transition after the failed request. [ev-action-01, ev-network-01]\n\nunknown: Cross-service failure path and deployed source revision are unknown. []\n\nMissing evidence: Backend trace; Approved acceptance criterion; Verified deployed build",
+  "diagnosis_report_id": "diag-demo-001"
+}

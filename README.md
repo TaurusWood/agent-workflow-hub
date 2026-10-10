@@ -47,3 +47,9 @@ Not a deployed QA tool, not a source-of-truth mirror for internal company docume
 ## Next step
 
 Run the [Chrome capture → AI interpretation → QA review → Jira technical spike](docs/validation/qa-capture-spike.md) with synthetic or approved non-sensitive data. Use the results to set the v0.1 implementation boundary.
+
+## Executable synthetic spike
+
+首个文本合同 Spike 已运行；真实 Codex 调用因当前环境未安装 CLI 而未验证。
+见 [运行说明](tools/qa-spike/README.md) 与 [验证结果](docs/validation/synthetic-spike-results-20261010.md)。
+生产实现与真实 Chrome/Jira 闭环仍未完成。

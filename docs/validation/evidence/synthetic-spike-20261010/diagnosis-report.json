@@ -1,0 +1,42 @@
+{
+  "id": "diag-demo-001",
+  "observation_id": "obs-demo-001",
+  "symptom_type": "interaction/loading",
+  "fault_domain": "backend_api",
+  "confidence": "medium",
+  "claims": [
+    {
+      "kind": "fact",
+      "statement": "The captured payment preparation request returned HTTP 500.",
+      "evidence_refs": [
+        "ev-network-01"
+      ]
+    },
+    {
+      "kind": "inference",
+      "statement": "The API boundary is implicated; underlying root cause is not established.",
+      "evidence_refs": [
+        "ev-network-01"
+      ]
+    },
+    {
+      "kind": "hypothesis",
+      "statement": "The UI may lack an error-state transition after the failed request.",
+      "evidence_refs": [
+        "ev-action-01",
+        "ev-network-01"
+      ]
+    },
+    {
+      "kind": "unknown",
+      "statement": "Cross-service failure path and deployed source revision are unknown.",
+      "evidence_refs": []
+    }
+  ],
+  "missing_evidence": [
+    "Backend trace",
+    "Approved acceptance criterion",
+    "Verified deployed build"
+  ],
+  "suggested_team": "example-payment-team"
+}
